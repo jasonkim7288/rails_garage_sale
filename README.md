@@ -1,13 +1,13 @@
-# Beautiful OAuth Login template with Rails
+# Garage sale with Rails
 
 ## Link
-### Github link : https://github.com/jasonkim7288/rails_omniauth
-### Deploy link : https://oauthjason.herokuapp.com/
+### Github link : https://github.com/jasonkim7288/rails_garage_sale
+### Deploy link : 
 
 ## Description
-Whenever making a Rails app, log in functions are needed, so here is a template for log in functions with OAuth in it.
+Garage sale app allow users to upload their garage sales information so that other users can see it.
 
-![Image of OAuth](docs/OAuth.png)
+<!-- ![Image of OAuth](docs/OAuth.png) -->
 
 ## Tech stack
 - Rails : Front end and back end source code
