@@ -1,9 +1,1 @@
 <h1>Remove this test page</h1>
-<% if user_signed_in? %>
-    <p>Welcome <strong><%= current_user.email %></strong><%= " from #{current_user.provider}" if current_user.provider != "" %></p>
-    <%= link_to 'Log out', destroy_user_session_path, method: :delete, class: "btn btn-primary" %>
-    
-<% else %>
-    <%= link_to 'Log in', new_user_session_path, class: "btn btn-success" %>
-    <%= link_to 'Sign up', new_user_registration_path, class: "btn btn-primary" %>
-<% end %>

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :posts
   root 'pages#index'
   devise_for :users, controllers: {omniauth_callbacks: 'omniauth'}
   get 'pages/privacy_policy'
