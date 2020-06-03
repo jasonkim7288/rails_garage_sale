@@ -1,49 +1,24 @@
-<div class="container">
-    <% @posts.each do |post| %>
+<div class="container mt-2">
+    <h1 class="display-4 text-center">All area</h1>
+    
         <div class="card">
-            <h5 class="card-header">Featured</h5>
+            <h5 class="card-header">Clothing, furniture, plants and more in Brisbane CBD</h5>
+            
             <div class="card-body">
-                <h5 class="card-title">Special title treatment</h5>
-                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                <a href="#" class="btn btn-primary">Go detail</a>
+                <div class="card-text row row-cols-2">
+                    <p class="col col-10 col-sm-3 col-md-2">11:30 AM<br />~ 3:00 PM</p>
+                    <div class="col col-10 col-sm-7 col-md-7">
+                        <h5>60 Gloucester Street Spring Hill, QLD <%= link_to '>> Get direction', "https://www.google.com/maps/dir/?api=1&destination=60+Gloucester+Street+Spring Hill%2C+QLD", class: "ml-2", target: "_blank", id: "get-dir" %> </h5>
+                        <p>22 June 2020 ~ 23 June 2020</p>
+                        <p class="mt-n3 font-weight-light" style="font-size: 0.9em">We are moving to NSW soon, so visit us and check it out.</p>
+                        <p><strong>Jason Kim</strong><i class="fas fa-phone ml-4 mr-1"></i>0402 111 222</p>
+                        <a href="#" class="btn btn-primary mt-2">See comments</a>
+                    </div>
+                    <%= image_tag("coder_academy.png", class: "col col-10 col-sm-10 col-md-3", alt: "image of sale", style: "object-fit: contain;") %>
+                </div>
             </div>
         </div>
-    <% end %>
+
 </div>
 
 
-<h1>Posts</h1>
-
-
-
-<table>
-    <thead>
-        <tr>
-            <th>Title</th>
-            <th>Address</th>
-            <th>Open date</th>
-            <th>Close date</th>
-            <th>User</th>
-            <th colspan="3"></th>
-        </tr>
-    </thead>
-
-    <tbody>
-        <% @posts.each do |post| %>
-            <tr>
-                <td><%= post.title %></td>
-                <td><%= post.address %></td>
-                <td><%= post.open_date %></td>
-                <td><%= post.close_date %></td>
-                <td><%= post.user_id %></td>
-                <td><%= link_to 'Show', post %></td>
-                <td><%= link_to 'Edit', edit_post_path(post) %></td>
-                <td><%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-            </tr>
-        <% end %>
-    </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Post', new_post_path %>

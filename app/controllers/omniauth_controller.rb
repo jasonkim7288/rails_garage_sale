@@ -1,4 +1,4 @@
-class OmniauthController < ApplicationController
+class OmniauthController < Devise::RegistrationsController
     def facebook
         @user = User.create_from_provider_data(request.env['omniauth.auth'])
         if @user.persisted?
