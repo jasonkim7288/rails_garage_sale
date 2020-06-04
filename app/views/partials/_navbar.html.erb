@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background-color: #000000d0;">
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background-color: #202020d0;">
     <div class="container">
         <a class="navbar-brand" href=<%= root_path %>>Garage sale</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -23,15 +23,12 @@
                                 <%= current_user.email %>
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="#">Action</a>
-                                <a class="dropdown-item" href="#">Another action</a>
+                                <%= link_to 'My Posts', new_post_path, class: "dropdown-item" %>
+                                <%= link_to 'New Post', new_post_path, class: "dropdown-item" %>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#">Something else here</a>
+                                <%= link_to 'Log out', destroy_user_session_path, method: :delete, class: "dropdown-item" %>
                             </div>
                         </li>
-                    </li>
-                    <li class="nav-item">
-                        <%= link_to 'Log out', destroy_user_session_path, method: :delete, class: "nav-link" %>
                     </li>
                 <% else %>
                     <li class="nav-item">

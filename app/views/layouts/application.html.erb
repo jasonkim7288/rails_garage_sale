@@ -12,6 +12,10 @@
         integrity="sha512-L7MWcK7FNPcwNqnLdZq86lTHYLdQqZaz5YcAgE+5cnGmlw8JT03QB2+oxL100UeB6RlzZLUxCGSS4/++mNZdxw== sha384-Bfad6CLCknfcloXFOyFnlgtENryhrpZCe29RTifKEixXQZ38WheV+i/6YWSzkz3V" crossorigin="anonymous" />
     <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.css" />
     <link rel="stylesheet" href="https://tempusdominus.github.io/bootstrap-4/theme/css/tempusdominus-bootstrap-4.css" />
+    <%= javascript_include_tag "https://maps.googleapis.com/maps/api/js?key=#{Rails.application.credentials.dig(:google_maps_api_key)}&libraries=places&callback=dispatchMapsEvent",
+                async: true,
+                defer: true,
+                "data-turbolinks-eval": false %>
 </head>
 
   <body>

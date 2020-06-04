@@ -1,42 +1,62 @@
-<%= form_with(model: post, local: true) do |form| %>
-  <% if post.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(post.errors.count, "error") %> prohibited this post from being saved:</h2>
+<%= form_with model: post, class: "row", local: true, data: {
+                                            controller: :maps,
+                                            action: "google-maps-callback@window->maps#initializeMap"
+                                        } do |form| %>
+    <% if post.errors.any? %>
+        <div id="error_explanation">
+            <h2><%= pluralize(post.errors.count, "error") %> prohibited this post from being saved:</h2>
 
-      <ul>
-        <% post.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
+            <ul>
+                <% post.errors.full_messages.each do |message| %>
+                    <li><%= message %></li>
+                <% end %>
+            </ul>
+        </div>
+    <% end %>
+
+    <div class="col-12 col-md-7">
+    <%= form.hidden_field :latitude, data: { target: "maps.latitude" } %>
+    <%= form.hidden_field :longitude, data: { target: "maps.longitude" } %>
+
+    <div class="form-group field">
+        <%= form.label :title %>
+        <%= form.text_field :title, class: "form-control" %>
     </div>
-  <% end %>
 
-  <div class="field">
-    <%= form.label :title %>
-    <%= form.text_field :title %>
-  </div>
+    <div class="form-group field">
+        <%= form.label :address %>
+        <%= form.search_field :address, class: "form-control", data: { target: "maps.field", action: "keydown->maps#preventSubmit" } %>
+    </div>
 
-  <div class="field">
-    <%= form.label :address %>
-    <%= form.text_field :address %>
-  </div>
+    <div class="row">
+        <div class="form-group field col-7 col-md-6">
+            <%= form.label :open_date, "Open date/time" %>
+            <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
+                <%= form.text_field :open_date, class: "form-control datetimepicker-input", data: { target: "#datetimepicker1" } %>
+                <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
+                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group field col-7 col-md-6">
+            <%= form.label :close_date, "Close date/time" %>
+            <div class="input-group date" id="datetimepicker2" data-target-input="nearest">
+                <%= form.text_field :close_date, class: "form-control datetimepicker-input", data: { target: "#datetimepicker2" } %>
+                <div class="input-group-append" data-target="#datetimepicker2" data-toggle="datetimepicker">
+                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-  <div class="field">
-    <%= form.label :open_date %>
-    <%= form.datetime_select :open_date %>
-  </div>
+    <%= form.text_field :user_id, value: current_user.id, type:"hidden" %>
+    </div>
 
-  <div class="field">
-    <%= form.label :close_date %>
-    <%= form.datetime_select :close_date %>
-  </div>
+    <div class="col-12 col-md-5">
+    <%= content_tag :div, nil, data: { target: "maps.map" }, class: "map mb-4" %>
+    </div>
 
-  <div class="field">
-    <%= form.label :user_id %>
-    <%= form.text_field :user_id %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
+    <div class="form-group actions">
+        <%= form.submit class: "btn btn-primary form-control ml-3" %>
+    </div>
 <% end %>
