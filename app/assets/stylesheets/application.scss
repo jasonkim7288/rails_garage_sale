@@ -15,12 +15,16 @@
  *= require_self
  */
 
+body {
+    background-color: #f5f6fc !important;
+}
+
 .rm-link-style:onhover {
     text-decoration: none;
 }
 
 .btn-facebook {
-    background-color: #395694;
+    background-color: #c0c0c0;
     border-color: #395694;
 }
 

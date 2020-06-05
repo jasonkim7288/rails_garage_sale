@@ -3,6 +3,14 @@
 // You can use Sass (SCSS) here: https://sass-lang.com/
 
 .map {
-    width: 100%;
-    min-height: 400px;
+    width: 97%;
+    min-height: 300px;
 }
+
+@media (min-width: 768px) {
+    .map {
+        min-height: 100%;
+    }    
+}
+
+

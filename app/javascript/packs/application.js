@@ -27,8 +27,14 @@ require('moment-timezone');
 require('fullcalendar');
 
 $('document').ready(function() {
-    $('#datetimepicker1').datetimepicker();
-    $('#datetimepicker2').datetimepicker();
+    $('#datetimepicker1').datetimepicker({
+        format: 'D MMMM YYYY h:mm A',
+        stepping: 15
+    });
+    $('#datetimepicker2').datetimepicker({
+        format: 'D MMMM YYYY h:mm A',
+        stepping: 15
+    });
 });
 
 window.dispatchMapsEvent = function(...args) {

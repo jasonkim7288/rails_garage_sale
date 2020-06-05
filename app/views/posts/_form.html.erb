@@ -35,11 +35,21 @@
         <%= form.search_field :address, class: "form-control", data: { target: "maps.field", action: "keydown->maps#preventSubmit" } %>
     </div>
 
+    <div class="form-group field">
+        <%= form.label :phone do %> 
+            <span>Phone</span><span class="font-italic">(opt.)</span>
+        <% end %>
+        <%= form.text_field :phone, class: "form-control" %>
+    </div>
+
     <div class="row">
         <div class="form-group field col-7 col-md-6">
             <%= form.label :open_date, "Open date/time" %>
             <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
-                <%= form.text_field :open_date, class: "form-control datetimepicker-input", data: { target: "#datetimepicker1" } %>
+                <%= form.text_field :open_date,
+                    value: form.object.open_date ? form.object.open_date.strftime('%d %B %Y %I:%M %p') : nil,
+                    class: "form-control datetimepicker-input",
+                    data: { target: "#datetimepicker1" } %>
                 <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
                     <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                 </div>
@@ -48,7 +58,10 @@
         <div class="form-group field col-7 col-md-6">
             <%= form.label :close_date, "Close date/time" %>
             <div class="input-group date" id="datetimepicker2" data-target-input="nearest">
-                <%= form.text_field :close_date, class: "form-control datetimepicker-input", data: { target: "#datetimepicker2" } %>
+                <%= form.text_field :close_date,
+                    value: form.object.close_date ? form.object.close_date.strftime('%d %B %Y %I:%M %p') : nil,
+                    class: "form-control datetimepicker-input",
+                    data: { target: "#datetimepicker2" } %>
                 <div class="input-group-append" data-target="#datetimepicker2" data-toggle="datetimepicker">
                     <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                 </div>
@@ -60,7 +73,7 @@
     </div>
 
     <div class="col-12 col-md-5">
-    <%= content_tag :div, nil, data: { target: "maps.map" }, class: "map mb-4" %>
+        <%= content_tag :div, nil, data: { target: "maps.map" }, class: "map mb-4" %>
     </div>
 
     <div class="form-group actions">
