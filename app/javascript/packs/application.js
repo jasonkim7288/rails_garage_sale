@@ -36,4 +36,4 @@ window.dispatchMapsEvent = function(...args) {
     event.initEvent("google-maps-callback", true, true)
     event.args = args
     window.dispatchEvent(event)
-  }
+}
