@@ -1,7 +1,11 @@
-class PhoneNumberValidator < ActiveModel::Validator
+class CustomValidator < ActiveModel::Validator
   def validate(record)
+    p record
     if record.phone != "" && TelephoneNumber.invalid?(record.phone, :AU, [:mobile, :fixed_line])
       record.errors[:phone] << 'number has an invalid format'
+    end
+    if record.latitude == nil || record.latitude == "" || record.longitude == nil || record.longitude == ""
+      record.errors[:address] << 'has an invalid format'
     end
   end
 end
@@ -15,7 +19,7 @@ class Post < ApplicationRecord
   validates :open_date, presence: true
   validates :close_date, presence: true
   include ActiveModel::Validations
-  validates_with PhoneNumberValidator
+  validates_with CustomValidator
 
   def direction_url
     return "https://www.google.com/maps/dir/?api=1&destination=#{self.address.gsub(/ /, "+").gsub(/,/, "%2C")}"

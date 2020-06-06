@@ -68,8 +68,10 @@ export default class extends Controller {
         this.marker().setPosition(place.geometry.location);
         this.marker().setVisible(true);
 
-        this.latitudeTarget.value = place.getmetry.location.lat();
-        this.longitudeTarget.value = place.getmetry.location.lng();
+        this.latitudeTarget.value = place.geometry.location.lat();
+        this.longitudeTarget.value = place.geometry.location.lng();
+
+        console.log('this.latitudeTarget.value:', this.latitudeTarget.value)
     }
 
     preventSubmit(e) {
