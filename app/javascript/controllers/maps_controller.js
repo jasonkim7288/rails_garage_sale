@@ -72,7 +72,7 @@ export default class extends Controller {
         this.longitudeTarget.value = place.getmetry.location.lng();
     }
 
-    preventSubmin(e) {
+    preventSubmit(e) {
         if (e.key == "Enter") {
             e.preventDefault();
         }
