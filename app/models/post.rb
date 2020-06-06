@@ -25,4 +25,22 @@ class Post < ApplicationRecord
     return "https://www.google.com/maps/dir/?api=1&destination=#{self.address.gsub(/ /, "+").gsub(/,/, "%2C")}"
   end
 
+  def place_url
+    return "https://www.google.com/maps/search/?api=1&query=#{self.address.gsub(/ /, "+").gsub(/,/, "%2C")}"
+  end
+
+  # If open date is equal to close date, return only open date
+  def period_without_year
+    open_date = self.open_date.to_time.strftime("%e %B")
+    close_date = self.close_date.to_time.strftime("%e %B")
+    return open_date == close_date ? open_date : "#{open_date} ~ #{close_date}"
+  end
+
+  # If open date is equal to close date, return only open date with year
+  def period_with_year
+    open_date = self.open_date.to_time.strftime("%e %B %Y")
+    close_date = self.close_date.to_time.strftime("%e %B %Y")
+    return open_date == close_date ? open_date : "#{open_date} ~ #{close_date}"
+  end
+
 end

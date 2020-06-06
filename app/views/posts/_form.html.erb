@@ -54,7 +54,7 @@
             <%= form.label :open_date, "Open date/time" %>
             <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
                 <%= form.text_field :open_date,
-                    value: form.object.open_date ? form.object.open_date.strftime('%d %B %Y %I:%M %p') : DateTime.now.next_day(1).strftime('%d %B %Y 09:00 AM'),
+                    value: form.object.open_date ? form.object.open_date.strftime('%d/%m/%Y %l:%M %p') : DateTime.now.next_day(1).strftime('%d/%m/%Y 9:00 AM'),
                     class: "form-control datetimepicker-input",
                     data: { target: "#datetimepicker1" } %>
                 <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
@@ -66,7 +66,7 @@
             <%= form.label :close_date, "Close date/time" %>
             <div class="input-group date" id="datetimepicker2" data-target-input="nearest">
                 <%= form.text_field :close_date,
-                    value: form.object.close_date ? form.object.close_date.strftime('%d %B %Y %I:%M %p') : DateTime.now.next_day(2).strftime('%d %B %Y 05:00 PM'),
+                    value: form.object.close_date ? form.object.close_date.strftime('%d/%m/%Y %l:%M %p') : DateTime.now.next_day(2).strftime('%d/%m/%Y 5:00 PM'),
                     class: "form-control datetimepicker-input",
                     data: { target: "#datetimepicker2" } %>
                 <div class="input-group-append" data-target="#datetimepicker2" data-toggle="datetimepicker">

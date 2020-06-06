@@ -1,5 +1,6 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy]
+  before_action :change_date_format, only: [:create, :update]
 
   # GET /posts
   # GET /posts.json
@@ -59,5 +60,12 @@ class PostsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def post_params
       params.require(:post).permit(:title, :address, :phone, :open_date, :close_date, :user_id, :body, :open_date, :close_date, :latitude, :longitude)
+    end
+
+    # input text format is "11/06/2020 9:00 AM"
+    # the format in the Model is "Thu, 11 Jun 2020 09:00:00 AEST +10:00"
+    def change_date_format
+      post_params[:open_date] = post_params[:open_date].to_datetime
+      post_params[:close_date] = post_params[:close_date].to_datetime
     end
 end

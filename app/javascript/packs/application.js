@@ -26,13 +26,15 @@ require('tempusdominus-bootstrap-4');
 require('moment-timezone');
 require('fullcalendar');
 
-$('document').ready(function() {
+$(document).on('turbolinks:load', function() {
     $('#datetimepicker1').datetimepicker({
-        format: 'D MMMM YYYY h:mm A',
+        locale: 'en-au',
+        format: 'DD/MM/YYYY h:mm A',
         stepping: 15
     });
     $('#datetimepicker2').datetimepicker({
-        format: 'D MMMM YYYY h:mm A',
+        locale: 'en-au',
+        format: 'DD/MM/YYYY h:mm A',
         stepping: 15
     });
 });
