@@ -62,3 +62,4 @@ gem 'omniauth-google-oauth2'
 gem 'activerecord-session_store'
 
 gem 'telephone_number'
+gem 'seed_dump'
