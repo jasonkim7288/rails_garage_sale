@@ -41,15 +41,22 @@ export default class extends Controller {
     }
 
     markerCluster() {
+        let current_map = this.map();
         if (this._marker_cluster == undefined) {
-            var markers = this._jason_locations.map(function(location, i) {
-                console.log('location:', location)
-                return new google.maps.Marker({
+            var markers = this._jason_locations.map((location, i) => {
+                var marker = new google.maps.Marker({
                     position: {
                         lat: parseFloat(location["latitude"]),
                         lng: parseFloat(location["longitude"])
                     }
-                })
+                });
+                marker.addListener('click', () => {
+                    let infoWindow = new google.maps.InfoWindow({
+                        content: `<p>${location.address}</p>`
+                    });
+                    infoWindow.open(current_map, marker);
+                });
+                return marker;
             });
             this._marker_cluster = new MarkerClusterer(this.map(),
                 markers,
@@ -80,12 +87,27 @@ export default class extends Controller {
         this.map().fitBounds(place.geometry.viewport);
         this.map().setCenter(place.geometry.location);
 
+        let bounds = this.map().getBounds();
+
+        document.getElementById("search-area").innerHTML = `In ${this.fieldTarget.value}`;
+
+        this._jason_locations.forEach( location => {
+            var position = {
+                lat: parseFloat(location["latitude"]),
+                lng: parseFloat(location["longitude"])
+            }
+            if (bounds.contains(position)) {
+                document.getElementById(location["id"]).classList.remove("d-none")
+            } else {
+                document.getElementById(location["id"]).classList.add("d-none")
+            }
+
+        });
         // this.latitudeTarget.value = place.geometry.location.lat();
         // this.longitudeTarget.value = place.geometry.location.lng();
     }
 
     reloadMap() {
-        console.log("Hi")
         this.locationChanged();
     }
 
