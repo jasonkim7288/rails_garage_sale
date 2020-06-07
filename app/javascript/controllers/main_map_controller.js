@@ -70,17 +70,16 @@ export default class extends Controller {
         if (this._autocomplete == undefined) {
             this._autocomplete = new google.maps.places.Autocomplete(this.fieldTarget);
             this._autocomplete.bindTo('bounds', this.map());
-            this._autocomplete.setFields(['address_components', 'geometry', 'icon', 'name']);
-            // this._autocomplete.addListener('place_changed', this.locationChanged.bind(this));
+            this._autocomplete.setFields(['address_components', 'geometry', 'icon', 'name', 'formatted_address']);
         }
         return this._autocomplete;
     }
 
     locationChanged() {
-        let place = this.autocomplete().getPlace()
+        let place = this.autocomplete().getPlace();
 
-        if (!place.geometry) {
-            window.alert("No details available for input: '" + place.name + "'");
+        if (place == undefined || place.formatted_address != this.fieldTarget.value || !place.geometry) {
+            window.alert("Address is invalid!");
             return;
         }
 
