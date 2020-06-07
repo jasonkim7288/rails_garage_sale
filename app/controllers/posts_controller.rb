@@ -6,6 +6,11 @@ class PostsController < ApplicationController
   # GET /posts.json
   def index
     @posts = Post.all.with_rich_text_body.order("created_at DESC")
+    @json_markers = @posts.inject([]) {|result, post| 
+                                        result.push({id: post.id, latitude: post.latitude, longitude: post.longitude});
+                                        result;
+                                      }.to_json
+    puts('@json_markers:', @json_markers)
   end
 
   # GET /posts/1

@@ -70,8 +70,6 @@ export default class extends Controller {
 
         this.latitudeTarget.value = place.geometry.location.lat();
         this.longitudeTarget.value = place.geometry.location.lng();
-
-        console.log('this.latitudeTarget.value:', this.latitudeTarget.value)
     }
 
     preventSubmit(e) {

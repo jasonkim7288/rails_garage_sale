@@ -7,6 +7,11 @@
     min-height: 300px;
 }
 
+.main-map {
+    width: 100vw;
+    height: 350px;
+}
+
 @media (min-width: 768px) {
     .map {
         min-height: 100%;
