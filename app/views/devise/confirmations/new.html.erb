@@ -13,7 +13,7 @@
 
                         <div class="form-group field">
                             <%= f.label :email do %>
-                                <i class="fa fa-user mr-1"></i>Email address
+                                <i class="fas fa-at mr-1"></i>Email address
                             <% end %>
                             <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control", value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email) %>
                         </div>

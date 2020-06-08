@@ -13,14 +13,21 @@
 
                         <div class="form-group field">
                             <%= f.label :email do %>
-                                <i class="fa fa-user"></i><%= " Email address" %>
+                                <i class="fas fa-at mr-1"></i><%= "Email address" %>
                             <% end %>
                             <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control" %>
                         </div>
 
                         <div class="form-group field">
+                            <%= f.label :full_name do %>
+                                <i class="fa fa-user mr-1"></i><%= "Full name" %>
+                            <% end %>
+                            <%= f.text_field :full_name, class: "form-control" %>
+                        </div>
+
+                        <div class="form-group field">
                             <%= f.label :password do %>
-                                <i class="fa fa-lock"></i><%= " Password" %>
+                                <i class="fa fa-lock mr-1"></i><%= "Password" %>
                             <% end %>
                             <% if @minimum_password_length %>
                                 <em>(<%= @minimum_password_length %> characters minimum)</em>
@@ -30,7 +37,7 @@
 
                         <div class="form-group field">
                             <%= f.label :password_confirmation do %>
-                                <i class="fa fa-lock"></i><%= " Password confirmation" %>
+                                <i class="fa fa-lock mr-1"></i><%= "Password confirmation" %>
                             <% end %>
                             <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control" %>
                         </div>
