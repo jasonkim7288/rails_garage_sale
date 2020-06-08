@@ -71,14 +71,22 @@ export default class extends Controller {
             this._autocomplete = new google.maps.places.Autocomplete(this.fieldTarget);
             this._autocomplete.bindTo('bounds', this.map());
             this._autocomplete.setFields(['address_components', 'geometry', 'icon', 'name', 'formatted_address']);
+            this._autocomplete.addListener('place_changed', this.placeChanged.bind(this));
         }
         return this._autocomplete;
+    }
+
+    placeChanged() {
+        this._place_changed = this.fieldTarget.value;
     }
 
     locationChanged() {
         let place = this.autocomplete().getPlace();
 
-        if (place == undefined || place.formatted_address != this.fieldTarget.value || !place.geometry) {
+        console.log(this._place_changed);
+        console.log(this.fieldTarget.value)
+        
+        if (place == undefined || this._place_changed != this.fieldTarget.value || !place.geometry) {
             window.alert("Address is invalid!");
             return;
         }
@@ -88,7 +96,7 @@ export default class extends Controller {
 
         let bounds = this.map().getBounds();
 
-        document.getElementById("search-area").innerHTML = `In ${this.fieldTarget.value}`;
+        document.getElementById("search-area").innerHTML = `Near ${this.fieldTarget.value}`;
 
         this._jason_locations.forEach( location => {
             var position = {
