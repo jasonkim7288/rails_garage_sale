@@ -15,7 +15,7 @@ class User < ApplicationRecord
       user.password = Devise.friendly_token[0, 20]
       case provider_data.provider
       when "facebook"
-        user.full_name = "#{provider_date.info.first_name} #{provider_date.info.last_name}"
+        user.full_name = provider_data.info.name ? provider_data.info.name : provider_data.info.email
       when "google_oauth2"
         user.full_name = provider_data.info.name
       when "github"
