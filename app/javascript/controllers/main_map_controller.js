@@ -165,12 +165,12 @@ export default class extends Controller {
         );
         this.map().fitBounds(bounds);
 
+        this.map().setCenter({
+            lat: parseFloat(this.latTarget.value),
+            lng: parseFloat(this.lngTarget.value)
+        });
+
         google.maps.event.addListenerOnce(this.map(), 'bounds_changed', () => {
-            this.map().setCenter({
-                lat: parseFloat(this.latTarget.value),
-                lng: parseFloat(this.lngTarget.value)
-            });
-            
             bounds = this.map().getBounds();
             console.log('bounds:', bounds)
 
@@ -193,12 +193,10 @@ export default class extends Controller {
                 } else {
                     document.getElementById(location["id"]).classList.add("d-none")
                 }
-    
             });
             // this.latitudeTarget.value = place.geometry.location.lat();
             // this.longitudeTarget.value = place.geometry.location.lng();
         })
-
     }
 
     reloadMap() {

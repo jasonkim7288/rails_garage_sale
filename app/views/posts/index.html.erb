@@ -57,7 +57,7 @@
                             </h5>
                             <p><%= post.period_with_year %></p>
                             <div class="mt-n1 mb-1 font-weight-light" style="font-size: 0.9em"><%= post.body %></div>
-                            <p style="font-size: 1.1em"><strong><%= post.user.email %></strong>
+                            <p style="font-size: 1.1em"><strong><%= post.user.full_name %></strong>
                                 <% if post.phone != nil && post.phone != "" %>
                                     <i class="fas fa-phone ml-4 mr-1"></i><%= post.phone %>
                                 <% end %>
@@ -72,7 +72,7 @@
                             <% end %>
                         </div>
                         <%= link_to post.place_url, class: "col-12 col-lg-3 mt-2 mb-2 mt-lg-0 mb-lg-0", target: "_blank" do %>
-                            <%= image_tag "https://maps.googleapis.com/maps/api/staticmap?zoom=20&size=800x800&center=#{post.latitude},#{post.longitude}&markers=#{post.latitude},#{post.longitude}&key=#{Rails.application.credentials.dig(:google_maps_api_key)}",
+                            <%= image_tag "https://maps.googleapis.com/maps/api/staticmap?zoom=17&size=800x800&center=#{post.latitude},#{post.longitude}&markers=#{post.latitude},#{post.longitude}&key=#{Rails.application.credentials.dig(:google_maps_api_key)}",
                                     class: "w-100 h-100",
                                     alt: "image of map",
                                     style: "object-fit: contain;",
