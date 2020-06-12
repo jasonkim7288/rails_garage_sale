@@ -10,7 +10,13 @@ class PostsController < ApplicationController
                                         result.push({id: post.id, latitude: post.latitude, longitude: post.longitude, address: post.address});
                                         result;
                                       }.to_json
-    puts('@json_markers:', @json_markers)
+    @address = get_query_value(:address)
+    @east = get_query_value(:east)
+    @north = get_query_value(:north)
+    @south = get_query_value(:south)
+    @west = get_query_value(:west)
+    @lat = get_query_value(:lat)
+    @lng = get_query_value(:lng)
   end
 
   # GET /posts/1
@@ -72,5 +78,10 @@ class PostsController < ApplicationController
     def change_date_format
       post_params[:open_date] = post_params[:open_date].to_datetime
       post_params[:close_date] = post_params[:close_date].to_datetime
+    end
+
+    # get the query from url and return the value
+    def get_query_value(param_symbol)
+      params[param_symbol] && params[param_symbol].length < 2048 ? params[param_symbol] : ""
     end
 end
