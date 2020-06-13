@@ -1,0 +1,55 @@
+<div class="m-4">
+    <h5>Comments</h5>
+
+    <% if user_signed_in? %>
+        <%= form_with(model: [post, post.comments.build]) do |form| %>
+            <% if @comment.errors.any? %>
+                <div id="error_explanation" class="col-12">
+                    <div class='alert alert-danger'>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <%= pluralize(@comment.errors.count, "error") %> prohibited this post from being saved:
+                        <ul>
+                            <% @comment.errors.full_messages.each do |message| %>
+                                <li class="text-danger"><%= message %></li>
+                            <% end %>
+                        </ul>
+                    </div>
+                </div>
+            <% end %>
+
+            <%= form.text_field :user_id, value: current_user.id, type:"hidden" %>
+
+            <div class="form-group">
+                <%= form.text_area :body, placeholder: "Enter your message", class: "form-control", row: 3 %>
+            </div>
+
+            <div class="actions">
+                <%= form.submit class: "btn btn-primary" %>
+            </div>
+        <% end %>
+    <% end %>
+</div>
+
+<div class="" style="background: #EEE">
+    <div class="row justify-content-center">
+    <% @comments.each do |comment| %>
+        <div class="card my-3 col-12 col-md-10">
+            <div class="card-body">
+                <h6 class="card-subtitle mb-2">
+                    <span class="text-info"><%= comment.user.full_name %></span> <span class="font-weight-light ml-5" style="font-size: 0.9em"><%= comment.created_at.strftime('%d/%m/%Y %l:%M %p') %></span>
+                </h6>
+                <p class="card-text">
+                    <%= comment.body %>
+                </p>
+                <% if user_signed_in? && current_user == comment.user %>
+                    <p class="text-right mb-0">
+                        <%= link_to 'Delete', [comment.post, comment], method: :delete, class: "text-danger", data: { confirm: 'Are you sure?' } %>
+                    </p>
+                <% end %>
+            </div>
+        </div>
+    <% end %>
+    </div>
+</div>

@@ -22,6 +22,9 @@ class PostsController < ApplicationController
   # GET /posts/1
   # GET /posts/1.json
   def show
+    @post = Post.includes(:comments).find(params[:id])
+    @comment = Comment.new
+    @comments = @post.comments.includes(:user).order('created_at DESC')
   end
 
   # GET /posts/new

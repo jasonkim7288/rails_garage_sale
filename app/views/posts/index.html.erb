@@ -24,7 +24,7 @@
     </div>
 </div>
 
-<div class="container mt-2">
+<div class="container mt-2 mb-5">
     <h2 class="text-center" id="search-area">All Area</h2>
     <% if @posts.length == 0%>
         <h5>No result</h5>
@@ -56,20 +56,10 @@
                                 <% end %>
                             </h5>
                             <p><%= post.period_with_year %></p>
-                            <div class="mt-n1 mb-1 font-weight-light" style="font-size: 0.9em"><%= post.body %></div>
-                            <p style="font-size: 1.1em"><strong><%= post.user.full_name %></strong>
-                                <% if post.phone != nil && post.phone != "" %>
-                                    <i class="fas fa-phone ml-4 mr-1"></i><%= post.phone %>
-                                <% end %>
+                            <div class="mt-n1 mb-1 font-weight-light overflow-hidden" style="font-size: 0.9em; max-height: 130px"><%= post.body %></div>
+                            <p>
+                                comments (<%= post.comments.length %>)
                             </p>
-                            <% if user_signed_in? && current_user.id == post.user.id %>
-                                <div class="row">
-                                    <div class="mr-auto col-auto"></div>
-                                        <%= link_to 'Edit', edit_post_path(post), class:"col-auto" %>
-                                    |
-                                        <%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' }, class:"col-auto text-danger" %>
-                                </div>
-                            <% end %>
                         </div>
                         <%= link_to post.place_url, class: "col-12 col-lg-3 mt-2 mb-2 mt-lg-0 mb-lg-0", target: "_blank" do %>
                             <%= image_tag "https://maps.googleapis.com/maps/api/staticmap?zoom=17&size=800x800&center=#{post.latitude},#{post.longitude}&markers=#{post.latitude},#{post.longitude}&key=#{Rails.application.credentials.dig(:google_maps_api_key)}",
@@ -85,7 +75,7 @@
                             %>
                         <% end %>
                     </div>
-                    <a href="#" class="btn btn-info mt-2 col-12 col-md-2">See comments</a>
+                    <%= link_to 'See details', post, class: "btn btn-info mt-2 col-12 col-md-4 col-lg-2" %>
                 </div>
             </div>
         </div>

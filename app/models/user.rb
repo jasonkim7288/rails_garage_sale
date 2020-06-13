@@ -5,7 +5,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable,
          :omniauthable, omniauth_providers: [:facebook, :github, :google_oauth2],
-         authentication_keys: [:full_name]
+         authentication_keys: [:email]
   has_many :posts, dependent: :destroy
   has_many :comments, dependent: :destroy
   validates :email, uniqueness: true
