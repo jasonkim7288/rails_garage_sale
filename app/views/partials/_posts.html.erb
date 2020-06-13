@@ -1,0 +1,64 @@
+<% posts.each do |post| %>
+    <div class="card mb-3" id="<%= post.id %>">
+        <h5 class="card-header" role="button" data-toggle="collapse" href="<%= "#collapseDetail#{post.id}" %>" aria-expanded="false" aria-controls="<%= "collapseDetail#{post.id}" %>">
+            <div class="row">
+                <div class="col-12 col-sm-8 col-md-9">
+                    <%= post.title %>
+                </div>
+                <div class="col-12 col-sm-4 col-md-3 text-right font-weight-light" style="font-size: 0.8em">
+                    <%= post.period_without_year %>
+                </div>
+                <div class="col-12 col-sm-8 col-md-9 mt-2">
+                    <div class="font-weight-normal" style="font-size: 0.7em"><%= post.address %></div>
+                </div>
+            </div>
+        </h5>
+        
+        <div class="card-body collapse" id="<%= "collapseDetail#{post.id}" %>">
+            <div class="card-text">
+                <div class="row row-cols-3">
+                    <p class="col-12 col-sm-3 col-lg-2"><%= post.open_date.to_time.strftime("%l:%M %p") %><br />~ <%= post.close_date.to_time.strftime("%l:%M %p")%></p>
+                    <div class="col-12 col-sm-9 col-lg-7">
+                        <h5>
+                            <%= post.address %> <%= link_to post.direction_url, class: "ml-1", target: "_blank", id: "get-dir"  do %>
+                                <i class="fas fa-directions"></i>
+                            <% end %>
+                        </h5>
+                        <p><%= post.period_with_year %></p>
+                        <div class="mt-n1 mb-1 font-weight-light overflow-hidden" style="font-size: 0.9em; max-height: 65px"><%= post.body %></div>
+                        <p style="font-size: 1.1em"><strong><%= post.user.full_name %></strong>
+                            <% if post.phone != nil && post.phone != "" %>
+                                <i class="fas fa-phone ml-4 mr-1"></i><%= post.phone %>	
+                            <% end %>	
+                        </p>
+                        <% if user_signed_in? && current_user.id == @post.user.id %>
+                            <div class="row">
+                                <div class="mr-auto col-auto"></div>
+                                    <%= link_to 'Edit', edit_post_path(@post), class:"col-auto" %>
+                                |
+                                    <%= link_to 'Destroy', @post, method: :delete, data: { confirm: 'Are you sure?' }, class:"col-auto text-danger" %>
+                            </div>
+                        <% end %>
+                        <p>
+                            comments (<%= post.comments.length %>)
+                        </p>
+                    </div>
+                    <%= link_to post.place_url, class: "col-12 col-lg-3 mt-2 mb-2 mt-lg-0 mb-lg-0", target: "_blank" do %>
+                        <%= image_tag "https://maps.googleapis.com/maps/api/staticmap?zoom=17&size=800x800&center=#{post.latitude},#{post.longitude}&markers=#{post.latitude},#{post.longitude}&key=#{Rails.application.credentials.dig(:google_maps_api_key)}",
+                                class: "w-100 h-100",
+                                alt: "image of map",
+                                style: "object-fit: contain;",
+                                data: {
+                                    toggle: "tooltip",
+                                    placement: "top"
+                                },
+                                
+                                title: "Click for location"
+                        %>
+                    <% end %>
+                </div>
+                <%= link_to 'See details', post, class: "btn btn-info mt-2 col-12 col-md-4 col-lg-2" %>
+            </div>
+        </div>
+    </div>
+<% end %>
