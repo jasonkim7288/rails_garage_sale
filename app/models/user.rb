@@ -7,6 +7,7 @@ class User < ApplicationRecord
          :omniauthable, omniauth_providers: [:facebook, :github, :google_oauth2],
          authentication_keys: [:full_name]
   has_many :posts, dependent: :destroy
+  has_many :comments, dependent: :destroy
   validates :email, uniqueness: true
   
   def self.create_from_provider_data(provider_data)
