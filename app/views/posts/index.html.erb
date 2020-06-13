@@ -56,7 +56,12 @@
                                 <% end %>
                             </h5>
                             <p><%= post.period_with_year %></p>
-                            <div class="mt-n1 mb-1 font-weight-light overflow-hidden" style="font-size: 0.9em; max-height: 130px"><%= post.body %></div>
+                            <div class="mt-n1 mb-1 font-weight-light overflow-hidden" style="font-size: 0.9em; max-height: 65px"><%= post.body %></div>
+                            <p style="font-size: 1.1em"><strong><%= post.user.full_name %></strong>
+                                <% if post.phone != nil && post.phone != "" %>
+                                    <i class="fas fa-phone ml-4 mr-1"></i><%= post.phone %>	
+                                <% end %>	
+                            </p>
                             <p>
                                 comments (<%= post.comments.length %>)
                             </p>
