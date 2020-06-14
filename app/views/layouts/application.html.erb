@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Garage sale</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -20,10 +20,12 @@
     <%= javascript_include_tag "https://cdn.rawgit.com/googlemaps/js-marker-clusterer/gh-pages/src/markerclusterer.js" %>
 </head>
 
-  <body>
+  <body class="d-flex flex-column h-100">
     <%= render 'partials/navbar' %>
-  	<%= render 'partials/flash' %>
-    <%= yield %>
+    <main role="main" class="flex-fill mb-5" style="margin-bottom=80px">
+      <%= render 'partials/flash' %>
+      <%= yield %>
+    </main>
     <%= render 'partials/footer' %>
   </body>
 </html>

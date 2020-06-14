@@ -1,13 +1,13 @@
-<div data-controller="main-map" data-action="google-maps-callback@window->main-map#initializeMap">
-    <input type="hidden" name=:json_markers data-target="main-map.jsonMarkers" value='<%= @json_markers %>' />
-    <input type="hidden" name=:current_url data-target="main-map.currentUrl" value='<%= posts_path %>' />
-    <input type="hidden" name=:east data-target="main-map.east" value='<%= @east %>' />
-    <input type="hidden" name=:north data-target="main-map.north" value='<%= @north %>' />
-    <input type="hidden" name=:south data-target="main-map.south" value='<%= @south %>' />
-    <input type="hidden" name=:west data-target="main-map.west" value='<%= @west %>' />
-    <input type="hidden" name=:lat data-target="main-map.lat" value='<%= @lat %>' />
-    <input type="hidden" name=:lng data-target="main-map.lng" value='<%= @lng %>' />
-
+<div data-controller="main-map" data-action="google-maps-callback@window->main-map#initializeMap"
+    json-markers='<%= @json_markers %>'
+    current-url='<%= posts_path %>'
+    north='<%= @north %>'
+    east='<%= @east %>'
+    south='<%= @south %>'
+    west='<%= @west %>'
+    lat='<%= @lat %>'
+    lng='<%= @lng %>'
+>
     <div class="container-fluid">
         <div class="row">
             <div class="col-1 col-sm-2"></div>

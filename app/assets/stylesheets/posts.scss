@@ -28,34 +28,20 @@
 
 /* animation effect when hovering over icons */
 .links-icon-background {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
+    width: 35px;
+    height: 35px;
     font-size: 32px;
-    padding-left: 12px;
     transition: all 0.5s;
     text-decoration: none;
     color: white;
 }
 
 .links-icon-background:hover {
-    text-decoration: none;
-    color: lightgray;
+    color: gray;
 }
 
-/* slight adjustment for each icon */
-.to-left {
-    padding-left: 10px;
-}
-
-.to-right {
-    padding-left: 15px;
-}
-
-.to-little-right {
-    padding-left: 13px;
-}
-
-.to-top {
-    transform: translateY(-3px);
+.footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%
 }

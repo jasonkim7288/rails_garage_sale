@@ -1,8 +1,7 @@
 import { Controller } from "stimulus"
 
 export default class extends Controller {
-    // currentUrl is for redirecting to root_path in javascript
-    static targets = ["field", "map", "jsonMarkers", "currentUrl", "east", "north", "south", "west", "lat", "lng"];
+    static targets = ["field", "map"];
 
     connect() {
         if (typeof(google) != "undefined") {
@@ -12,7 +11,7 @@ export default class extends Controller {
 
     initializeMap() {
         console.log("Initialize map of main_map")
-        this._jason_locations = JSON.parse(this.jsonMarkersTarget.value);
+        this._jason_locations = JSON.parse(this.element.getAttribute("json-markers"));
         this.map();
         this.markerCluster();
         this.autocomplete();
@@ -22,8 +21,8 @@ export default class extends Controller {
     }
 
     hasQuery() {
-        if (this.fieldTarget.value != "" && this.eastTarget.value != "" && this.northTarget.value != "" && this.southTarget.value != "" &&
-                this.westTarget.value != "" && this.latTarget.value != "" && this.lngTarget.value != ""
+        if (this.fieldTarget.value != "" && this.element.getAttribute("east") != "" && this.element.getAttribute("north") != "" && this.element.getAttribute("south") != "" &&
+                this.element.getAttribute("west") != "" && this.element.getAttribute("lat") != "" && this.element.getAttribute("lng") != ""
             )
             return true;
         else
@@ -37,8 +36,8 @@ export default class extends Controller {
             {
                 this._map = new google.maps.Map(this.mapTarget, {
                     center: new google.maps.LatLng(
-                        parseFloat(this.latTarget.value),
-                        parseFloat(this.lngTarget.value)
+                        parseFloat(this.element.getAttribute("lat")),
+                        parseFloat(this.element.getAttribute("lng"))
                     )
                     // zoom: parseInt(this.zoomTarget.value)
                 });
@@ -149,16 +148,16 @@ export default class extends Controller {
             return;
         }
 
-        console.log('this.eastTarget.value:', this.eastTarget.value)
-        console.log('this.northTarget.value:', this.northTarget.value)
-        console.log('this.southTarget.value:', this.southTarget.value)
-        console.log('this.westTarget.value:', this.westTarget.value)
+        console.log('this.element.getAttribute("east"):', this.element.getAttribute("east"))
+        console.log('this.element.getAttribute("north"):', this.element.getAttribute("north"))
+        console.log('this.element.getAttribute("south"):', this.element.getAttribute("south"))
+        console.log('this.element.getAttribute("west"):', this.element.getAttribute("west"))
 
         // let bound = {
-        //     east: parseFloat(this.eastTarget.value),
-        //     north: parseFloat(this.northTarget.value),
-        //     south: parseFloat(this.southTarget.value),
-        //     west: parseFloat(this.westTarget.value)
+        //     east: parseFloat(this.element.getAttribute("east")),
+        //     north: parseFloat(this.element.getAttribute("north")),
+        //     south: parseFloat(this.element.getAttribute("south")),
+        //     west: parseFloat(this.element.getAttribute("west"))
         // }
         // console.log('bounds:', bound)
 
@@ -169,13 +168,13 @@ export default class extends Controller {
         // let bounds = this.map().getBounds();
         // console.log('bounds:', bounds)
         this.map().setCenter({
-            lat: parseFloat(this.latTarget.value),
-            lng: parseFloat(this.lngTarget.value)
+            lat: parseFloat(this.element.getAttribute("lat")),
+            lng: parseFloat(this.element.getAttribute("lng"))
         });
 
         let bounds = new google.maps.LatLngBounds(
-            new google.maps.LatLng(parseFloat(this.southTarget.value), parseFloat(this.westTarget.value)),
-            new google.maps.LatLng(parseFloat(this.northTarget.value), parseFloat(this.eastTarget.value))
+            new google.maps.LatLng(parseFloat(this.element.getAttribute("south")), parseFloat(this.element.getAttribute("west"))),
+            new google.maps.LatLng(parseFloat(this.element.getAttribute("north")), parseFloat(this.element.getAttribute("east")))
         );
 
         google.maps.event.addListenerOnce(this.map(), 'center_changed', () => {
@@ -240,7 +239,7 @@ export default class extends Controller {
         const params = new URLSearchParams(jsonParams);
 
         // Redirect to /posts/?address=xxxxx
-        window.location.href = `${this.currentUrlTarget.value}/?${params.toString()}`;
+        window.location.href = `${this.element.getAttribute("current-url")}/?${params.toString()}`;
     }
 
     // prohibit Enter key, only allow to hit the search button.
