@@ -23,7 +23,8 @@
 
     <%= form.hidden_field :latitude, data: { target: "maps.latitude" } %>
     <%= form.hidden_field :longitude, data: { target: "maps.longitude" } %>
-    <%= form.text_field :user_id, value: current_user.id, type:"hidden" %>
+    <%= form.text_field :user_id, value: current_user.id, type: "hidden" %>
+    <input type="hidden" name="origin" value=<%= origin %> />
 
     <div class="col-12 col-md-7">
 

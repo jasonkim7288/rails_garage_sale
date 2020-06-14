@@ -1,6 +1,8 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy]
   before_action :change_date_format, only: [:create, :update]
+  before_action :authenticate_user!, only: [:myposts, :new, :edit, :update, :destroy]
+  before_action :set_origin, only: [:show, :new, :edit, :create, :update, :destroy]
 
   # GET /posts
   # GET /posts.json
@@ -17,6 +19,8 @@ class PostsController < ApplicationController
     @west = get_query_value(:west)
     @lat = get_query_value(:lat)
     @lng = get_query_value(:lng)
+    # Remember where is edit/delete started from. It could be started from index or myposts
+    @origin = "index"
   end
 
   # GET /posts/1
@@ -42,7 +46,11 @@ class PostsController < ApplicationController
     @post = Post.new(post_params)
 
     if @post.save
+      if @origin == "myposts"
+        redirect_to posts_myposts_path, notice: 'Post was successfully created.'
+      else
         redirect_to posts_url, notice: 'Post was successfully created.'
+      end
     else
         render :new
     end
@@ -52,7 +60,11 @@ class PostsController < ApplicationController
   # PATCH/PUT /posts/1.json
   def update
     if @post.update(post_params)
-      redirect_to posts_url, notice: 'Post was successfully updated.'
+      if @origin == "myposts"
+        redirect_to posts_myposts_url, notice: 'Post was successfully updated.'
+      else
+        redirect_to posts_url, notice: 'Post was successfully updated.'
+      end
     else
       render :edit
     end
@@ -62,7 +74,17 @@ class PostsController < ApplicationController
   # DELETE /posts/1.json
   def destroy
     @post.destroy
-    redirect_to posts_url, notice: 'Post was successfully destroyed.'
+    if @origin == "myposts"
+      redirect_to posts_myposts_url, notice: 'Post was successfully destroyed.'
+    else
+      redirect_to posts_url, notice: 'Post was successfully destroyed.'
+    end
+  end
+
+  def myposts
+    @posts = Post.where(user_id: current_user.id).with_rich_text_body.order("created_at DESC")
+    # Remember where is edit/delete started from. It could be started from index or myposts
+    @origin = "myposts"
   end
 
   private
@@ -74,6 +96,10 @@ class PostsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def post_params
       params.require(:post).permit(:title, :address, :phone, :open_date, :close_date, :user_id, :body, :open_date, :close_date, :latitude, :longitude)
+    end
+
+    def set_origin
+      @origin = params[:origin]
     end
 
     # input text format is "11/06/2020 9:00 AM"

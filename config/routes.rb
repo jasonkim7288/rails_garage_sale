@@ -1,9 +1,11 @@
 Rails.application.routes.draw do
   
+  get 'posts/myposts'
   resources :posts
   root 'posts#index'
   devise_for :users, controllers: {omniauth_callbacks: 'omniauth'}
   get 'pages/privacy_policy'
+
 
   resources :posts do
     resources :comments

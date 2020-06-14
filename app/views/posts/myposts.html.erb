@@ -1,0 +1,8 @@
+<div class="container mt-2 mb-5">
+    <h2 class="text-center" id="search-area"><%= "#{current_user.full_name}'s #{pluralize(@posts.count, "post")}" %></h2>
+    <% if @posts.length == 0%>
+        <h5>No result</h5>
+    <% end %>
+
+    <%= render 'partials/posts', posts: @posts, origin: @origin %>
+</div>

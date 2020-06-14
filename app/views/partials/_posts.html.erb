@@ -1,3 +1,7 @@
+<% if @posts.length == 0%>
+    <h5>No result</h5>
+<% end %>
+
 <% posts.each do |post| %>
     <div class="card mb-3" id="<%= post.id %>">
         <h5 class="card-header" role="button" data-toggle="collapse" href="<%= "#collapseDetail#{post.id}" %>" aria-expanded="false" aria-controls="<%= "collapseDetail#{post.id}" %>">
@@ -31,14 +35,6 @@
                                 <i class="fas fa-phone ml-4 mr-1"></i><%= post.phone %>	
                             <% end %>	
                         </p>
-                        <% if user_signed_in? && current_user.id == @post.user.id %>
-                            <div class="row">
-                                <div class="mr-auto col-auto"></div>
-                                    <%= link_to 'Edit', edit_post_path(@post), class:"col-auto" %>
-                                |
-                                    <%= link_to 'Destroy', @post, method: :delete, data: { confirm: 'Are you sure?' }, class:"col-auto text-danger" %>
-                            </div>
-                        <% end %>
                         <p>
                             comments (<%= post.comments.length %>)
                         </p>
@@ -57,7 +53,7 @@
                         %>
                     <% end %>
                 </div>
-                <%= link_to 'See details', post, class: "btn btn-info mt-2 col-12 col-md-4 col-lg-2" %>
+                <%= link_to 'See details', post_path(post, origin: origin) , class: "btn btn-info mt-2 col-12 col-md-4 col-lg-2" %>
             </div>
         </div>
     </div>

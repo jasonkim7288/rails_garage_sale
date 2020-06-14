@@ -29,9 +29,9 @@
                         <% if user_signed_in? && current_user.id == @post.user.id %>
                             <div class="row">
                                 <div class="mr-auto col-auto"></div>
-                                    <%= link_to 'Edit', edit_post_path(@post), class:"col-auto" %>
+                                    <%= link_to 'Edit', edit_post_path(@post, origin: @origin), class:"col-auto" %>
                                 |
-                                    <%= link_to 'Destroy', @post, method: :delete, data: { confirm: 'Are you sure?' }, class:"col-auto text-danger" %>
+                                    <%= link_to 'Destroy', post_path(@post, origin: @origin), method: :delete, data: { confirm: 'Are you sure?' }, class:"col-auto text-danger" %>
                             </div>
                         <% end %>
                     </div>

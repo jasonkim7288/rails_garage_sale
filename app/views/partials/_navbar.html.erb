@@ -20,8 +20,8 @@
                                 <%= current_user.full_name %>
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <%= link_to 'My Posts', new_post_path, class: "dropdown-item" %>
-                                <%= link_to 'New Post', new_post_path, class: "dropdown-item" %>
+                                <%= link_to 'My Posts', posts_myposts_path, class: "dropdown-item" %>
+                                <%= link_to 'New Post', new_post_path(origin: @origin), class: "dropdown-item" %>
                                 <div class="dropdown-divider"></div>
                                 <%= link_to 'Log out', destroy_user_session_path, method: :delete, class: "dropdown-item" %>
                             </div>
