@@ -7,7 +7,11 @@ class PostsController < ApplicationController
   # GET /posts
   # GET /posts.json
   def index
-    @posts = Post.where("close_date > ?", DateTime.current - 7.days).with_rich_text_body.order("updated_at DESC")
+    if user_signed_in? && current_user.has_role?(:admin)
+      @posts = Post.all.with_rich_text_body.order("updated_at DESC")
+    else
+      @posts = Post.where("close_date > ?", DateTime.current - 7.days).with_rich_text_body.order("updated_at DESC")
+    end
     @json_markers = @posts.inject([]) {|result, post| 
                                         result.push({id: post.id, latitude: post.latitude, longitude: post.longitude, address: post.address});
                                         result;
@@ -21,6 +25,17 @@ class PostsController < ApplicationController
     @lng = get_query_value(:lng)
     # Remember where is edit/delete started from. It could be started from index or myposts
     @origin = "index"
+  end
+
+  # User's own posts (My Posts menu item)
+  def myposts
+    if user_signed_in? && current_user.has_role?(:admin)
+      @posts = Post.all.with_rich_text_body.order("updated_at DESC")
+    else
+      @posts = Post.where(user_id: current_user.id).with_rich_text_body.order("updated_at DESC")
+    end
+    # Remember where is edit/delete started from. It could be started from index or myposts
+    @origin = "myposts"
   end
 
   # GET /posts/1
@@ -81,10 +96,9 @@ class PostsController < ApplicationController
     end
   end
 
-  def myposts
-    @posts = Post.where(user_id: current_user.id).with_rich_text_body.order("updated_at DESC")
-    # Remember where is edit/delete started from. It could be started from index or myposts
-    @origin = "myposts"
+  # Delete all posts whose close date is more than a week behind the current date
+  def admindelete
+    redirect_to posts_url, notice: 'Old posts were successfully destroyed.'
   end
 
   private

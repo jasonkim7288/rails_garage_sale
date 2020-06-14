@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   
   get 'posts/myposts'
+  delete 'posts/admindelete'
   resources :posts
   root 'posts#index'
   devise_for :users, controllers: {omniauth_callbacks: 'omniauth'}
