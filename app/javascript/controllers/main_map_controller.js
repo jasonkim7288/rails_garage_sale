@@ -11,6 +11,7 @@ export default class extends Controller {
     }
 
     initializeMap() {
+        console.log("Initialize map of main_map")
         this._jason_locations = JSON.parse(this.jsonMarkersTarget.value);
         this.map();
         this.markerCluster();
@@ -18,7 +19,6 @@ export default class extends Controller {
         this.placeChanged();
         // this.initialAutocomplete();
         this.setPlace();
-        console.log('this.eastTarget.value:', this.eastTarget.value)
     }
 
     hasQuery() {
@@ -70,7 +70,9 @@ export default class extends Controller {
     markerCluster() {
         let current_map = this.map();
         if (this._marker_cluster == undefined) {
-            var markers = this._jason_locations.map((location, i) => {
+            let count = 0;
+            let markers = this._jason_locations.map((location, i) => {
+                count++;
                 var marker = new google.maps.Marker({
                     position: {
                         lat: parseFloat(location["latitude"]),
@@ -89,6 +91,13 @@ export default class extends Controller {
                 markers,
                 {imagePath: 'https://cdn.rawgit.com/googlemaps/js-marker-clusterer/gh-pages/images/m'}
             );
+
+            // If there is no post, display No result
+            if (count > 0) {
+                document.getElementById("no-result").classList.add("d-none")
+            } else {
+                document.getElementById("no-result").classList.remove("d-none")
+            }
         }
         return this._markers_cluster;
     }
@@ -159,15 +168,18 @@ export default class extends Controller {
 
         // let bounds = this.map().getBounds();
         // console.log('bounds:', bounds)
+        this.map().setCenter({
+            lat: parseFloat(this.latTarget.value),
+            lng: parseFloat(this.lngTarget.value)
+        });
+
         let bounds = new google.maps.LatLngBounds(
             new google.maps.LatLng(parseFloat(this.southTarget.value), parseFloat(this.westTarget.value)),
             new google.maps.LatLng(parseFloat(this.northTarget.value), parseFloat(this.eastTarget.value))
         );
-        this.map().fitBounds(bounds);
 
-        this.map().setCenter({
-            lat: parseFloat(this.latTarget.value),
-            lng: parseFloat(this.lngTarget.value)
+        google.maps.event.addListenerOnce(this.map(), 'center_changed', () => {
+            this.map().fitBounds(bounds);
         });
 
         google.maps.event.addListenerOnce(this.map(), 'bounds_changed', () => {
@@ -182,6 +194,7 @@ export default class extends Controller {
     
             document.getElementById("search-area").innerHTML = `Near ${this.fieldTarget.value}`;
     
+            let count = 0;
             this._jason_locations.forEach( location => {
                 var position = {
                     lat: parseFloat(location["latitude"]),
@@ -190,10 +203,19 @@ export default class extends Controller {
                 console.log('position:', position)
                 if (bounds.contains(position)) {
                     document.getElementById(location["id"]).classList.remove("d-none")
+                    count++;
                 } else {
                     document.getElementById(location["id"]).classList.add("d-none")
                 }
             });
+
+            // If there is no post, display No result
+            if (count > 0) {
+                document.getElementById("no-result").classList.add("d-none")
+            } else {
+                document.getElementById("no-result").classList.remove("d-none")
+            }
+                
             // this.latitudeTarget.value = place.geometry.location.lat();
             // this.longitudeTarget.value = place.geometry.location.lng();
         })
