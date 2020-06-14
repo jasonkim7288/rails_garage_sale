@@ -7,7 +7,7 @@ class PostsController < ApplicationController
   # GET /posts
   # GET /posts.json
   def index
-    @posts = Post.all.with_rich_text_body.order("created_at DESC")
+    @posts = Post.where("close_date > ?", DateTime.current - 7.days).with_rich_text_body.order("updated_at DESC")
     @json_markers = @posts.inject([]) {|result, post| 
                                         result.push({id: post.id, latitude: post.latitude, longitude: post.longitude, address: post.address});
                                         result;
@@ -28,7 +28,7 @@ class PostsController < ApplicationController
   def show
     @post = Post.includes(:comments).find(params[:id])
     @comment = Comment.new
-    @comments = @post.comments.includes(:user).order('created_at DESC')
+    @comments = @post.comments.includes(:user).order('updated_at DESC')
   end
 
   # GET /posts/new
@@ -82,7 +82,7 @@ class PostsController < ApplicationController
   end
 
   def myposts
-    @posts = Post.where(user_id: current_user.id).with_rich_text_body.order("created_at DESC")
+    @posts = Post.where(user_id: current_user.id).with_rich_text_body.order("updated_at DESC")
     # Remember where is edit/delete started from. It could be started from index or myposts
     @origin = "myposts"
   end
