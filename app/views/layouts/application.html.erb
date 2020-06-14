@@ -22,10 +22,11 @@
 
   <body class="d-flex flex-column h-100">
     <%= render 'partials/navbar' %>
-    <main role="main" class="flex-fill mb-5" style="margin-bottom=80px">
+    <main role="main" class="flex-fill">
       <%= render 'partials/flash' %>
       <%= yield %>
     </main>
+    
     <%= render 'partials/footer' %>
   </body>
 </html>

@@ -183,13 +183,6 @@ export default class extends Controller {
 
         google.maps.event.addListenerOnce(this.map(), 'bounds_changed', () => {
             bounds = this.map().getBounds();
-            console.log('bounds:', bounds)
-
-            let zoom = this.map().getZoom();
-            console.log('zoom:', zoom)
-    
-            let center = this.map().getCenter();
-            console.log('center:', center)
     
             document.getElementById("search-area").innerHTML = `Near ${this.fieldTarget.value}`;
     
