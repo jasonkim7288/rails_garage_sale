@@ -19,8 +19,8 @@ export default class extends Controller {
         if (this._map == undefined) {
             this._map = new google.maps.Map(this.mapTarget, {
                 center: new google.maps.LatLng(
-                    this.latitudeTarget.value,
-                    this.longitudeTarget.value
+                    parseFloat(this.latitudeTarget.value),
+                    parseFloat(this.longitudeTarget.value)
                 ),
                 zoom: 17
             });

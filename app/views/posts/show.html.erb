@@ -10,9 +10,13 @@
         
         <div class="card-body">
             <div class="card-text">
-                <div class="row row-cols-3">
+                <div class="row row-cols-2">
+                    <div class="col-12" data-controller="show-map" data-action="google-maps-callback@window->show-map#initializeMap" latitude="<%= @post.latitude %>" longitude="<%= @post.longitude %>">
+                        <%= content_tag :div, nil, data: { target: "show-map.map" }, class: "show-map mb-4 rounded shadow-sm" %>
+                    </div>
+
                     <p class="col-12 col-sm-3 col-lg-2"><%= @post.open_date.to_time.strftime("%l:%M %p") %><br />~ <%= @post.close_date.to_time.strftime("%l:%M %p")%></p>
-                    <div class="col-12 col-sm-9 col-lg-7">
+                    <div class="col-12 col-sm-9 col-lg-10">
                         <h5>
                             <%= @post.address %> <%= link_to @post.direction_url, class: "ml-1", target: "_blank", id: "get-dir"  do %>
                                 <i class="fas fa-directions"></i>
@@ -35,19 +39,6 @@
                             </div>
                         <% end %>
                     </div>
-                    <%= link_to @post.place_url, class: "col-12 col-lg-3 mt-2 mb-2 mt-lg-0 mb-lg-0", target: "_blank" do %>
-                        <%= image_tag "https://maps.googleapis.com/maps/api/staticmap?zoom=17&size=800x800&center=#{@post.latitude},#{@post.longitude}&markers=#{@post.latitude},#{@post.longitude}&key=#{Rails.application.credentials.dig(:google_maps_api_key)}",
-                                class: "w-100 h-100",
-                                alt: "image of map",
-                                style: "object-fit: contain;",
-                                data: {
-                                    toggle: "tooltip",
-                                    placement: "top"
-                                },
-                                
-                                title: "Click for location"
-                        %>
-                    <% end %>
                 </div>
             </div>
         </div>
