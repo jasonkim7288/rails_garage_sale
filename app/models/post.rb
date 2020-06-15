@@ -1,9 +1,6 @@
 class CustomValidator < ActiveModel::Validator
   def validate(record)
     p record
-    if record.phone != "" && TelephoneNumber.invalid?(record.phone, :AU, [:mobile, :fixed_line])
-      record.errors[:phone] << 'number has an invalid format'
-    end
     if record.latitude == nil || record.latitude == "" || record.longitude == nil || record.longitude == ""
       record.errors[:address] << 'has an invalid format'
     end

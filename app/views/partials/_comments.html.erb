@@ -35,7 +35,7 @@
 <div class="" style="background: #EEE">
     <div class="row justify-content-center">
     <% @comments.each do |comment| %>
-        <div class="card my-3 col-12 col-md-10">
+        <div class="card my-3 col-11 col-md-10">
             <div class="card-body">
                 <h6 class="card-subtitle mb-2">
                     <span class="text-info"><%= comment.user.full_name %></span> <span class="font-weight-light ml-5" style="font-size: 0.9em"><%= comment.created_at.strftime('%d/%m/%Y %l:%M %p') %></span>
