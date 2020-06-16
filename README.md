@@ -2,7 +2,7 @@
 
 ## Link
 ### Github link : https://github.com/jasonkim7288/rails_garage_sale
-### Deploy link : 
+### Deploy link : https://garagesalejason.herokuapp.com
 
 ## Description
 Garage sale app allow users to upload their garage sales information so that other users can see it.
