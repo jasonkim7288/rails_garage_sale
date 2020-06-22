@@ -40,5 +40,4 @@ class Post < ApplicationRecord
     close_date = self.close_date.to_time.strftime("%e %B %Y")
     return open_date == close_date ? open_date : "#{open_date} ~ #{close_date}"
   end
-
 end
